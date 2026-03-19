@@ -1,0 +1,15 @@
+{
+	"Name": "Bookstore",
+	"Hash": "Bookstore",
+
+	"MainViewportViewIdentifier": "Bookstore-Layout",
+
+	"AutoSolveAfterInitialize": true,
+	"AutoRenderMainViewportViewAfterInitialize": false,
+	"AutoRenderViewsAfterInitialize": false,
+
+	"pict_configuration":
+		{
+			"Product": "PictSectionModalExampleBookstore"
+		}
+}

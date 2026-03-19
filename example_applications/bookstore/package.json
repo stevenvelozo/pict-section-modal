@@ -1,0 +1,31 @@
+{
+	"name": "pict-section-modal-example-bookstore",
+	"version": "0.0.1",
+	"description": "Bookstore - Practical modal usage in a data-driven application with routing",
+	"main": "source/Pict-Application-Bookstore.js",
+	"scripts": {
+		"start": "node source/Pict-Application-Bookstore.js",
+		"build": "npx quack build && npx quack copy",
+		"test": "echo \"no tests\" && exit 0"
+	},
+	"author": "steven velozo <steven@velozo.com>",
+	"license": "MIT",
+	"dependencies": {
+		"pict": "^1.0.348",
+		"pict-application": "^1.0.28",
+		"pict-view": "^1.0.67",
+		"pict-router": "^1.0.6",
+		"pict-section-modal": "file:../../"
+	},
+	"devDependencies": {
+		"quackage": "^1.0.59"
+	},
+	"copyFilesSettings": {
+		"whenFileExists": "overwrite"
+	},
+	"copyFiles": [
+		{ "from": "./html/*", "to": "./dist/" },
+		{ "from": "./css/**", "to": "./dist/css/" },
+		{ "from": "./node_modules/pict/dist/*", "to": "./dist/js/" }
+	]
+}
