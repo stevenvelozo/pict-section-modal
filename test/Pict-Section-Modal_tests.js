@@ -77,7 +77,7 @@ suite
 					'Can create an instance with default options',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						Expect(tmpModal).to.be.an('object');
@@ -93,7 +93,7 @@ suite
 					'ID counter increments',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						let tmpId1 = tmpModal._nextId();
@@ -116,7 +116,7 @@ suite
 					'All public methods exist',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						Expect(typeof tmpModal.confirm).to.equal('function');
@@ -146,7 +146,7 @@ suite
 					'confirm() returns a Promise',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						let tmpResult = tmpModal.confirm('Are you sure?');
@@ -161,7 +161,7 @@ suite
 					'confirm() creates a dialog element in the DOM',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.confirm('Test message');
@@ -181,7 +181,7 @@ suite
 					'confirm() resolves true when confirm button is clicked',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.confirm('Confirm this?').then((pResult) =>
@@ -199,7 +199,7 @@ suite
 					'confirm() resolves false when cancel button is clicked',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.confirm('Cancel this?').then((pResult) =>
@@ -217,7 +217,7 @@ suite
 					'confirm() resolves false when close button is clicked',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.confirm('Close this?').then((pResult) =>
@@ -235,7 +235,7 @@ suite
 					'confirm() with dangerous option uses danger button style',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.confirm('Delete everything?', { dangerous: true });
@@ -253,7 +253,7 @@ suite
 					'confirm() with custom labels',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.confirm('Custom?', { confirmLabel: 'Yes', cancelLabel: 'No' });
@@ -279,7 +279,7 @@ suite
 					'doubleConfirm() returns a Promise',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						let tmpResult = tmpModal.doubleConfirm('Really?');
@@ -294,7 +294,7 @@ suite
 					'doubleConfirm() with phrase starts with confirm button disabled',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.doubleConfirm('Delete?', { confirmPhrase: 'DELETE' });
@@ -312,7 +312,7 @@ suite
 					'doubleConfirm() with phrase enables button after correct input',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.doubleConfirm('Delete?', { confirmPhrase: 'DELETE' });
@@ -343,7 +343,7 @@ suite
 					'doubleConfirm() without phrase uses two-click pattern',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.doubleConfirm('Really delete?').then((pResult) =>
@@ -375,7 +375,7 @@ suite
 					'show() returns a Promise',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						let tmpResult = tmpModal.show({ title: 'Test' });
@@ -390,7 +390,7 @@ suite
 					'show() renders custom content and buttons',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.show(
@@ -422,7 +422,7 @@ suite
 					'show() resolves with button Hash when clicked',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.show(
@@ -444,7 +444,7 @@ suite
 					'show() resolves null when close button is clicked',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.show({ title: 'Closeable', closeable: true }).then((pResult) =>
@@ -462,7 +462,7 @@ suite
 					'show() calls onOpen callback',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 						let tmpOpenCalled = false;
 
@@ -494,7 +494,7 @@ suite
 					'toast() creates a toast element',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						let tmpHandle = tmpModal.toast('Hello!', { duration: 0 });
@@ -513,7 +513,7 @@ suite
 					'toast() applies type class',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.toast('Success!', { type: 'success', duration: 0 });
@@ -530,7 +530,7 @@ suite
 					'toast() dismiss removes element from tracking',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						let tmpHandle = tmpModal.toast('Bye!', { duration: 0 });
@@ -547,7 +547,7 @@ suite
 					'toast() with dismissible shows dismiss button',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.toast('Dismissible', { duration: 0, dismissible: true });
@@ -565,7 +565,7 @@ suite
 					'toast() auto-dismisses after duration',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.toast('Auto', { duration: 50 });
@@ -583,7 +583,7 @@ suite
 					'toast() stacks multiple toasts',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.toast('First', { duration: 0 });
@@ -610,7 +610,7 @@ suite
 					'tooltip() returns a handle with destroy',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						let tmpTarget = document.createElement('button');
@@ -631,7 +631,7 @@ suite
 					'richTooltip() returns a handle with destroy',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						let tmpTarget = document.createElement('button');
@@ -652,7 +652,7 @@ suite
 					'tooltip destroy cleans up',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						let tmpTarget = document.createElement('button');
@@ -685,7 +685,7 @@ suite
 					'Overlay is created when modal opens',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.confirm('Test overlay');
@@ -702,7 +702,7 @@ suite
 					'Overlay reference counting works',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						Expect(tmpModal._overlay._refCount).to.equal(0);
@@ -734,7 +734,7 @@ suite
 					'dismissAll() cleans up modals and toasts',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.confirm('Modal 1');
@@ -764,7 +764,7 @@ suite
 					'Custom options override defaults',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal',
 						{
 							DefaultConfirmOptions:
@@ -794,7 +794,7 @@ suite
 					'destroy() cleans up everything',
 					(fDone) =>
 					{
-						let tmpPict = new libPict();
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
 						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
 
 						tmpModal.confirm('Modal');
