@@ -1,4 +1,4 @@
-# Pict-Section-Modal <small>0.0.1</small>
+# Pict-Section-Modal
 
 > Modal dialogs, confirmations, tooltips, and toast notifications for Pict applications
 
