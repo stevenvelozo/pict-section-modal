@@ -3,20 +3,20 @@
 [![npm version](https://badge.fury.io/js/pict-section-modal.svg)](https://www.npmjs.com/package/pict-section-modal)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A modal dialog, confirmation, tooltip, and toast notification section view for the [Pict](https://github.com/stevenvelozo/pict) application framework. Drop in a single view to get promise-based confirmations, custom floating windows, auto-dismissing toasts, and hover tooltips — all styled through CSS custom properties.
+A modal dialog, confirmation, tooltip, and toast notification section view for the [Pict](https://github.com/stevenvelozo/pict) application framework. Drop in a single view to get promise-based confirmations, custom floating windows, auto-dismissing toasts, and hover tooltips -- all styled through CSS custom properties.
 
-Pict-Section-Modal provides a complete notification and dialog toolkit — confirm dialogs, double-confirm safety gates, custom modal windows with arbitrary content, toast notifications with stacking, and simple or rich interactive tooltips — all composable through the Fable service provider pattern.
+Pict-Section-Modal provides a complete notification and dialog toolkit -- confirm dialogs, double-confirm safety gates, custom modal windows with arbitrary content, toast notifications with stacking, and simple or rich interactive tooltips -- all composable through the Fable service provider pattern.
 
 ## Features
 
-- **Confirm Dialogs** — Promise-based single-step confirmations with OK/Cancel buttons and optional danger styling
-- **Double Confirmations** — Two-step safety gates: type-to-confirm with a required phrase, or click-twice to proceed
-- **Custom Modal Windows** — Arbitrary HTML content with configurable buttons, closeable header, and lifecycle callbacks
-- **Toast Notifications** — Auto-dismissing stacked notifications in six screen positions with four severity types
-- **Tooltips** — Simple text tooltips and rich HTML tooltips with directional positioning and auto-flip
-- **CSS Theming** — 30+ CSS custom properties for full visual customization without touching source code
-- **Shared Overlay** — Reference-counted backdrop shared across stacked modals with click-to-dismiss support
-- **Keyboard & Focus** — Escape key dismissal, focus trapping, and ARIA attributes for accessibility
+- **Confirm Dialogs** -- Promise-based single-step confirmations with OK/Cancel buttons and optional danger styling
+- **Double Confirmations** -- Two-step safety gates: type-to-confirm with a required phrase, or click-twice to proceed
+- **Custom Modal Windows** -- Arbitrary HTML content with configurable buttons, closeable header, and lifecycle callbacks
+- **Toast Notifications** -- Auto-dismissing stacked notifications in six screen positions with four severity types
+- **Tooltips** -- Simple text tooltips and rich HTML tooltips with directional positioning and auto-flip
+- **CSS Theming** -- 30+ CSS custom properties for full visual customization without touching source code
+- **Shared Overlay** -- Reference-counted backdrop shared across stacked modals with click-to-dismiss support
+- **Keyboard & Focus** -- Escape key dismissal, focus trapping, and ARIA attributes for accessibility
 
 ## Installation
 
@@ -50,7 +50,7 @@ tmpModal.toast('File saved successfully.', { type: 'success' });
 ### Confirmations
 
 ```javascript
-// Simple confirm — resolves true or false
+// Simple confirm -- resolves true or false
 let tmpResult = await tmpModal.confirm('Delete this record?',
 	{
 		title: 'Delete Record',
@@ -59,7 +59,7 @@ let tmpResult = await tmpModal.confirm('Delete this record?',
 		dangerous: true
 	});
 
-// Double confirm with phrase — user must type the phrase to proceed
+// Double confirm with phrase -- user must type the phrase to proceed
 let tmpResult = await tmpModal.doubleConfirm('This will permanently delete all data.',
 	{
 		title: 'Destroy Everything',
@@ -69,7 +69,7 @@ let tmpResult = await tmpModal.doubleConfirm('This will permanently delete all d
 		cancelLabel: 'Cancel'
 	});
 
-// Double confirm without phrase — first click changes label, second click confirms
+// Double confirm without phrase -- first click changes label, second click confirms
 let tmpResult = await tmpModal.doubleConfirm('Reset the entire workspace?',
 	{
 		title: 'Reset Workspace',
@@ -81,7 +81,7 @@ let tmpResult = await tmpModal.doubleConfirm('Reset the entire workspace?',
 ### Modal Windows
 
 ```javascript
-// Custom modal with buttons — resolves with the clicked button's Hash
+// Custom modal with buttons -- resolves with the clicked button's Hash
 let tmpAction = await tmpModal.show(
 	{
 		title: 'Export Options',
@@ -159,7 +159,7 @@ tmpModal.dismissToasts();
 // Dismiss everything
 tmpModal.dismissAll();
 
-// Full cleanup — removes all DOM elements and event listeners
+// Full cleanup -- removes all DOM elements and event listeners
 tmpModal.destroy();
 ```
 
@@ -218,9 +218,9 @@ Override any `--pict-modal-*` custom property on `.pict-modal-root` to customize
 
 Full documentation is available at [https://stevenvelozo.github.io/pict-section-modal/](https://stevenvelozo.github.io/pict-section-modal/)
 
-- [Getting Started](https://stevenvelozo.github.io/pict-section-modal/#/Quick_Start) — First modal dialog in five minutes
-- [Architecture](https://stevenvelozo.github.io/pict-section-modal/#/Architecture) — Helper class design and overlay management
-- [Implementation Reference](https://stevenvelozo.github.io/pict-section-modal/#/Implementation_Reference) — Complete API surface
+- [Getting Started](https://stevenvelozo.github.io/pict-section-modal/#/Quick_Start) -- First modal dialog in five minutes
+- [Architecture](https://stevenvelozo.github.io/pict-section-modal/#/Architecture) -- Helper class design and overlay management
+- [Implementation Reference](https://stevenvelozo.github.io/pict-section-modal/#/Implementation_Reference) -- Complete API surface
 
 ## API Reference (Function Docs)
 
@@ -242,10 +242,10 @@ Detailed per-function documentation with code snippets:
 
 ## Related Packages
 
-- [pict](https://github.com/stevenvelozo/pict) — MVC application framework
-- [pict-view](https://github.com/stevenvelozo/pict-view) — View base class
-- [pict-section-form](https://github.com/stevenvelozo/pict-section-form) — Form sections
-- [fable](https://github.com/stevenvelozo/fable) — Service infrastructure and dependency injection
+- [pict](https://github.com/stevenvelozo/pict) -- MVC application framework
+- [pict-view](https://github.com/stevenvelozo/pict-view) -- View base class
+- [pict-section-form](https://github.com/stevenvelozo/pict-section-form) -- Form sections
+- [fable](https://github.com/stevenvelozo/fable) -- Service infrastructure and dependency injection
 
 ## License
 

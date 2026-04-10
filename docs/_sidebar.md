@@ -11,25 +11,25 @@
 
   - [Implementation Reference](Implementation_Reference.md)
 
-- API — Confirmations
+- API -- Confirmations
 
   - [confirm](api/confirm.md)
   - [doubleConfirm](api/doubleConfirm.md)
 
-- API — Modal Windows
+- API -- Modal Windows
 
   - [show](api/show.md)
 
-- API — Toast Notifications
+- API -- Toast Notifications
 
   - [toast](api/toast.md)
 
-- API — Tooltips
+- API -- Tooltips
 
   - [tooltip](api/tooltip.md)
   - [richTooltip](api/richTooltip.md)
 
-- API — Cleanup
+- API -- Cleanup
 
   - [dismissAll](api/dismissAll.md)
   - [dismissModals](api/dismissModals.md)
@@ -37,6 +37,6 @@
   - [dismissToasts](api/dismissToasts.md)
   - [destroy](api/destroy.md)
 
-- API — Theming
+- API -- Theming
 
   - [CSS Custom Properties](api/CSS_Custom_Properties.md)

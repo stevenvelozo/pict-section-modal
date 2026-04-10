@@ -1,6 +1,6 @@
 # Quick Start
 
-This guide walks you through adding modal dialogs, confirmations, toasts, and tooltips to a Pict application — installing the package, registering the view, and using each feature.
+This guide walks you through adding modal dialogs, confirmations, toasts, and tooltips to a Pict application -- installing the package, registering the view, and using each feature.
 
 ## Prerequisites
 
@@ -43,7 +43,7 @@ const libPictSectionModal = require('pict-section-modal');
 _Pict.addView('Modal', {}, libPictSectionModal);
 ```
 
-The view auto-initializes by default. No HTML container element is needed — all DOM elements are appended directly to `document.body`.
+The view auto-initializes by default. No HTML container element is needed -- all DOM elements are appended directly to `document.body`.
 
 ## Step 3: Initialize
 
@@ -168,7 +168,7 @@ tmpTip.destroy();
 
 For dangerous operations, use `doubleConfirm()` to add an extra safety step. There are two modes:
 
-**Phrase mode** — the user must type a specific phrase:
+**Phrase mode** -- the user must type a specific phrase:
 
 ```javascript
 let tmpConfirmed = await tmpModal.doubleConfirm(
@@ -181,7 +181,7 @@ let tmpConfirmed = await tmpModal.doubleConfirm(
 	});
 ```
 
-**Two-click mode** — no phrase required, the button label changes on first click:
+**Two-click mode** -- no phrase required, the button label changes on first click:
 
 ```javascript
 let tmpConfirmed = await tmpModal.doubleConfirm(
@@ -267,5 +267,5 @@ tmpModal.tooltip(document.getElementById('btn-export'), 'Export data', { positio
 
 ## Next Steps
 
-- **[Architecture](Architecture.md)** — Understand the helper class design and overlay management
-- **[Implementation Reference](Implementation_Reference.md)** — Full API for every method and configuration option
+- **[Architecture](Architecture.md)** -- Understand the helper class design and overlay management
+- **[Implementation Reference](Implementation_Reference.md)** -- Full API for every method and configuration option

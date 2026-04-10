@@ -1,8 +1,8 @@
 # Pict-Section-Modal
 
-A modal dialog, confirmation, tooltip, and toast notification section view for the [Pict](https://github.com/stevenvelozo/pict) application framework. Drop in a single view to get promise-based confirmations, custom floating windows, auto-dismissing toasts, and hover tooltips — all styled through CSS custom properties.
+A modal dialog, confirmation, tooltip, and toast notification section view for the [Pict](https://github.com/stevenvelozo/pict) application framework. Drop in a single view to get promise-based confirmations, custom floating windows, auto-dismissing toasts, and hover tooltips -- all styled through CSS custom properties.
 
-Pict-Section-Modal provides a complete notification and dialog toolkit — confirm dialogs, double-confirm safety gates, custom modal windows with arbitrary content, toast notifications with stacking, and simple or rich interactive tooltips — all composable through the Fable service provider pattern.
+Pict-Section-Modal provides a complete notification and dialog toolkit -- confirm dialogs, double-confirm safety gates, custom modal windows with arbitrary content, toast notifications with stacking, and simple or rich interactive tooltips -- all composable through the Fable service provider pattern.
 
 ## What It Does
 
@@ -12,9 +12,9 @@ Pict-Section-Modal gives your Pict application a unified API for user-facing dia
 - **Show modal windows** with arbitrary HTML content and configurable action buttons
 - **Display toast notifications** that stack, auto-dismiss, and support four severity levels
 - **Attach tooltips** to any element with directional positioning and viewport-aware auto-flip
-- **Theme everything** with CSS custom properties — no source code changes required
+- **Theme everything** with CSS custom properties -- no source code changes required
 
-All methods return promises or handles, so dialog results integrate naturally with async application logic. The view registers with Pict's service provider system and manages its own DOM lifecycle — creating, animating, and removing elements as needed.
+All methods return promises or handles, so dialog results integrate naturally with async application logic. The view registers with Pict's service provider system and manages its own DOM lifecycle -- creating, animating, and removing elements as needed.
 
 ## Architecture at a Glance
 
@@ -55,7 +55,7 @@ The main `PictSectionModal` class extends `pict-view` and delegates to five inte
 
 ### Shared Overlay
 
-Confirm dialogs and modal windows share a single backdrop overlay element. The overlay is reference-counted — it appears when the first modal opens and disappears when the last one closes. Clicking the overlay dismisses the topmost modal (configurable via `OverlayClickDismisses`).
+Confirm dialogs and modal windows share a single backdrop overlay element. The overlay is reference-counted -- it appears when the first modal opens and disappears when the last one closes. Clicking the overlay dismisses the topmost modal (configurable via `OverlayClickDismisses`).
 
 ### Promise-Based API
 
@@ -98,18 +98,18 @@ if (tmpConfirmed)
 
 ## Learn More
 
-- **[Quick Start](Quick_Start.md)** — Build your first modal dialog in five minutes
-- **[Architecture](Architecture.md)** — Helper class design, overlay management, and DOM lifecycle
-- **[Implementation Reference](Implementation_Reference.md)** — Complete API surface for every method and configuration option
+- **[Quick Start](Quick_Start.md)** -- Build your first modal dialog in five minutes
+- **[Architecture](Architecture.md)** -- Helper class design, overlay management, and DOM lifecycle
+- **[Implementation Reference](Implementation_Reference.md)** -- Complete API surface for every method and configuration option
 
 ## Ecosystem
 
 Pict-Section-Modal is part of the [Retold](https://github.com/stevenvelozo/retold) module suite:
 
-- [pict](https://github.com/stevenvelozo/pict) — Core MVC application framework
-- [pict-view](https://github.com/stevenvelozo/pict-view) — View base class
-- [pict-section-form](https://github.com/stevenvelozo/pict-section-form) — Form sections
-- [fable](https://github.com/stevenvelozo/fable) — Service infrastructure and dependency injection
+- [pict](https://github.com/stevenvelozo/pict) -- Core MVC application framework
+- [pict-view](https://github.com/stevenvelozo/pict-view) -- View base class
+- [pict-section-form](https://github.com/stevenvelozo/pict-section-form) -- Form sections
+- [fable](https://github.com/stevenvelozo/fable) -- Service infrastructure and dependency injection
 
 ## License
 

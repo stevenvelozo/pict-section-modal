@@ -2,7 +2,7 @@
 
 Complete API reference for Pict-Section-Modal. This document covers every public method on the main `PictSectionModal` class, all configuration options, and the full CSS class and custom properties reference.
 
-## PictSectionModal — Main View API
+## PictSectionModal -- Main View API
 
 The primary class exported by `pict-section-modal`. Extends `pict-view`.
 
@@ -40,7 +40,7 @@ Show a single-step confirmation dialog.
 | `pOptions.cancelLabel` | string | No | Cancel button text (default: `'Cancel'`) |
 | `pOptions.dangerous` | boolean | No | Use danger styling for the confirm button (default: `false`) |
 
-**Returns:** `Promise<boolean>` — Resolves `true` if the user clicks confirm, `false` if they cancel, close, press Escape, or click the overlay.
+**Returns:** `Promise<boolean>` -- Resolves `true` if the user clicks confirm, `false` if they cancel, close, press Escape, or click the overlay.
 
 ```javascript
 let tmpConfirmed = await tmpModal.confirm('Discard unsaved changes?',
@@ -56,9 +56,9 @@ let tmpConfirmed = await tmpModal.confirm('Discard unsaved changes?',
 
 Show a two-step confirmation dialog. Supports two modes:
 
-**Phrase mode** — When `confirmPhrase` is a non-empty string, the confirm button starts disabled. The user must type the exact phrase into a text input to enable it.
+**Phrase mode** -- When `confirmPhrase` is a non-empty string, the confirm button starts disabled. The user must type the exact phrase into a text input to enable it.
 
-**Two-click mode** — When `confirmPhrase` is empty or omitted, the confirm button is enabled immediately. The first click changes its label to "Click again to confirm". The second click resolves the promise.
+**Two-click mode** -- When `confirmPhrase` is empty or omitted, the confirm button is enabled immediately. The first click changes its label to "Click again to confirm". The second click resolves the promise.
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
@@ -70,7 +70,7 @@ Show a two-step confirmation dialog. Supports two modes:
 | `pOptions.confirmLabel` | string | No | Confirm button text (default: `'Confirm'`) |
 | `pOptions.cancelLabel` | string | No | Cancel button text (default: `'Cancel'`) |
 
-**Returns:** `Promise<boolean>` — Resolves `true` if the user completes the full confirmation, `false` otherwise.
+**Returns:** `Promise<boolean>` -- Resolves `true` if the user completes the full confirmation, `false` otherwise.
 
 ```javascript
 // Phrase mode
@@ -113,7 +113,7 @@ Show a custom modal window with arbitrary HTML content and configurable buttons.
 | `pOptions.onOpen` | function | No | Called after the dialog is shown; receives the dialog DOM element |
 | `pOptions.onClose` | function | No | Called after the dialog is dismissed; receives the result value |
 
-**Returns:** `Promise<string|null>` — Resolves with the `Hash` of the clicked button, or `null` if closed without selecting an action.
+**Returns:** `Promise<string|null>` -- Resolves with the `Hash` of the clicked button, or `null` if closed without selecting an action.
 
 ```javascript
 let tmpAction = await tmpModal.show(
@@ -160,7 +160,7 @@ Show a toast notification.
 
 **Position values:** `'top-right'`, `'top-left'`, `'top-center'`, `'bottom-right'`, `'bottom-left'`, `'bottom-center'`
 
-**Returns:** `{ dismiss: function }` — Handle object. Call `dismiss()` to programmatically remove the toast.
+**Returns:** `{ dismiss: function }` -- Handle object. Call `dismiss()` to programmatically remove the toast.
 
 ```javascript
 // Auto-dismissing info toast
@@ -195,7 +195,7 @@ Attach a simple text tooltip to a DOM element. The tooltip appears on mouseenter
 | `pOptions.delay` | number | No | Delay in milliseconds before showing (default: `200`) |
 | `pOptions.maxWidth` | string | No | Maximum tooltip width (default: `'300px'`) |
 
-**Returns:** `{ destroy: function }` — Handle object. Call `destroy()` to remove the tooltip binding and all event listeners.
+**Returns:** `{ destroy: function }` -- Handle object. Call `destroy()` to remove the tooltip binding and all event listeners.
 
 The tooltip automatically flips to the opposite direction if it would overflow the viewport.
 
@@ -224,7 +224,7 @@ Attach a rich HTML tooltip to a DOM element. Supports interactive content (links
 | `pOptions.maxWidth` | string | No | Maximum tooltip width (default: `'300px'`) |
 | `pOptions.interactive` | boolean | No | Allow hovering over the tooltip itself without dismissing (default: `false`) |
 
-**Returns:** `{ destroy: function }` — Handle object. Call `destroy()` to remove the tooltip binding and all event listeners.
+**Returns:** `{ destroy: function }` -- Handle object. Call `destroy()` to remove the tooltip binding and all event listeners.
 
 When `interactive` is `true`, the tooltip gains `pointer-events: auto` and a 100ms delay before hiding, allowing the user to move their cursor from the target element into the tooltip to interact with its content.
 
@@ -250,7 +250,7 @@ Dismiss all open modal dialogs (both confirm dialogs and custom windows). Each m
 
 ### dismissTooltips()
 
-Dismiss all currently visible tooltips. Does not remove the tooltip bindings — tooltips will reappear on the next hover. To permanently remove a tooltip, use the `destroy()` method on its handle.
+Dismiss all currently visible tooltips. Does not remove the tooltip bindings -- tooltips will reappear on the next hover. To permanently remove a tooltip, use the `destroy()` method on its handle.
 
 ### dismissToasts()
 
@@ -258,7 +258,7 @@ Dismiss all active toast notifications immediately.
 
 ### dismissAll()
 
-Dismiss everything — modals, tooltips, and toasts. Equivalent to calling `dismissModals()`, `dismissTooltips()`, and `dismissToasts()` in sequence.
+Dismiss everything -- modals, tooltips, and toasts. Equivalent to calling `dismissModals()`, `dismissTooltips()`, and `dismissToasts()` in sequence.
 
 ### destroy()
 

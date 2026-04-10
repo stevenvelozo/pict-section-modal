@@ -1,6 +1,6 @@
 # Architecture
 
-Pict-Section-Modal follows the standard Pict view pattern — a single view class that extends `pict-view` and registers with a Fable instance through the service provider pattern. Internally, the view delegates to five helper classes, each responsible for a specific type of UI element.
+Pict-Section-Modal follows the standard Pict view pattern -- a single view class that extends `pict-view` and registers with a Fable instance through the service provider pattern. Internally, the view delegates to five helper classes, each responsible for a specific type of UI element.
 
 ## High-Level Design
 
@@ -195,13 +195,13 @@ sequenceDiagram
 
 Every UI element follows the same create/animate/remove lifecycle:
 
-1. **Create** — `document.createElement()` builds the element with appropriate classes and attributes
-2. **Append** — The element is appended to `document.body` (or a toast container)
-3. **Reflow** — A forced reflow (`void element.offsetHeight`) ensures the browser registers the initial state
-4. **Animate In** — Adding the `pict-modal-visible` class triggers a CSS transition (opacity and transform)
-5. **Interactive** — The element is live and interactive
-6. **Animate Out** — Removing `pict-modal-visible` (or adding an exit class) triggers the reverse transition
-7. **Remove** — After a 220ms delay (matching the CSS transition duration), the element is removed from the DOM
+1. **Create** -- `document.createElement()` builds the element with appropriate classes and attributes
+2. **Append** -- The element is appended to `document.body` (or a toast container)
+3. **Reflow** -- A forced reflow (`void element.offsetHeight`) ensures the browser registers the initial state
+4. **Animate In** -- Adding the `pict-modal-visible` class triggers a CSS transition (opacity and transform)
+5. **Interactive** -- The element is live and interactive
+6. **Animate Out** -- Removing `pict-modal-visible` (or adding an exit class) triggers the reverse transition
+7. **Remove** -- After a 220ms delay (matching the CSS transition duration), the element is removed from the DOM
 
 This pattern ensures every element has a smooth entrance and exit animation, and no orphaned elements remain in the DOM after dismissal.
 
@@ -211,10 +211,10 @@ Elements use fixed z-index values to ensure correct stacking:
 
 | Layer | z-index | Element |
 |-------|---------|---------|
-| Overlay | 1000 | `.pict-modal-overlay` — Backdrop behind modals |
-| Dialogs | 1010 | `.pict-modal-dialog` — Confirm and modal windows |
-| Tooltips | 1020 | `.pict-modal-tooltip` — Hover tooltips |
-| Toasts | 1030 | `.pict-modal-toast-container` — Toast notification stacks |
+| Overlay | 1000 | `.pict-modal-overlay` -- Backdrop behind modals |
+| Dialogs | 1010 | `.pict-modal-dialog` -- Confirm and modal windows |
+| Tooltips | 1020 | `.pict-modal-tooltip` -- Hover tooltips |
+| Toasts | 1030 | `.pict-modal-toast-container` -- Toast notification stacks |
 
 Toasts have the highest z-index so they remain visible even when a modal dialog is open. Tooltips sit above dialogs because they may be triggered by elements inside a modal.
 
@@ -235,7 +235,7 @@ graph LR
     style B fill:#fff3e0,stroke:#ffa726,color:#333
 ```
 
-During initialization, the view adds the `pict-modal-root` class to `document.body`. All CSS rules reference variables defined on this class. To theme the module, override any `--pict-modal-*` variable in your own stylesheet — no need to modify the module's source or increase specificity.
+During initialization, the view adds the `pict-modal-root` class to `document.body`. All CSS rules reference variables defined on this class. To theme the module, override any `--pict-modal-*` variable in your own stylesheet -- no need to modify the module's source or increase specificity.
 
 The variables are organized into groups:
 
@@ -259,7 +259,7 @@ Pict-Section-Modal is a standard Pict view, so it integrates with other views an
 - **Show toasts from API responses**: Wire toast calls to Meadow REST response handlers
 - **Tooltips on dynamic content**: Attach tooltips after another view renders its content
 
-The view does not render into a container element — it appends directly to `document.body`. This means it works alongside any other Pict section without layout conflicts.
+The view does not render into a container element -- it appends directly to `document.body`. This means it works alongside any other Pict section without layout conflicts.
 
 ## Design Patterns
 
@@ -269,7 +269,7 @@ The main `PictSectionModal` class is a thin facade. Each public method delegates
 
 ### Reference Counting
 
-The overlay uses reference counting rather than a simple show/hide boolean. This correctly handles the case where multiple modals are open simultaneously — the overlay stays visible until every modal has been dismissed.
+The overlay uses reference counting rather than a simple show/hide boolean. This correctly handles the case where multiple modals are open simultaneously -- the overlay stays visible until every modal has been dismissed.
 
 ### Handle Pattern
 
