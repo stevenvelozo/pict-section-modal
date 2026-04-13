@@ -101,7 +101,25 @@ class PictModalPanel
 			tmpEdge.appendChild(tmpTab);
 		}
 
-		tmpTarget.insertBefore(tmpEdge, tmpTarget.firstChild);
+		// Insert edge as a sibling so it is not clipped by the
+		// panel's own overflow (e.g. overflow-y: auto for scrolling).
+		// Right panels: edge goes BEFORE the panel (left side).
+		// Left panels: edge goes AFTER the panel (right side).
+		if (tmpTarget.parentNode)
+		{
+			if (tmpIsRight)
+			{
+				tmpTarget.parentNode.insertBefore(tmpEdge, tmpTarget);
+			}
+			else
+			{
+				tmpTarget.parentNode.insertBefore(tmpEdge, tmpTarget.nextSibling);
+			}
+		}
+		else
+		{
+			tmpTarget.insertBefore(tmpEdge, tmpTarget.firstChild);
+		}
 
 		// ── Chevron SVG helper ──────────────────────────────
 		let tmpChevronRight = '<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,3 11,8 6,13"/></svg>';
@@ -138,6 +156,7 @@ class PictModalPanel
 			if (tmpIsCollapsed || tmpDestroyed) return;
 			tmpIsCollapsed = true;
 			tmpTarget.classList.add('pict-panel-collapsed');
+			tmpEdge.classList.add('pict-panel-edge-collapsed');
 			tmpUpdateChevron();
 			tmpPersist();
 			if (typeof tmpOptions.onToggle === 'function') tmpOptions.onToggle(true);
@@ -147,6 +166,7 @@ class PictModalPanel
 		{
 			if (!tmpIsCollapsed || tmpDestroyed) return;
 			tmpIsCollapsed = false;
+			tmpEdge.classList.remove('pict-panel-edge-collapsed');
 			tmpTarget.classList.remove('pict-panel-collapsed');
 			tmpTarget.style.width = tmpCurrentWidth + 'px';
 			tmpUpdateChevron();
@@ -236,6 +256,7 @@ class PictModalPanel
 		{
 			tmpIsCollapsed = true;
 			tmpTarget.classList.add('pict-panel-collapsed');
+			tmpEdge.classList.add('pict-panel-edge-collapsed');
 			tmpUpdateChevron();
 		}
 
