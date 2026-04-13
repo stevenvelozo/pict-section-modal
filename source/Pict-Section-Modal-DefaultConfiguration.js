@@ -491,16 +491,17 @@ module.exports = (
 	position: relative;
 	transition: width 0.2s ease;
 	flex-shrink: 0;
+	overflow: visible;
 }
 .pict-panel-collapsed
 {
 	width: 0 !important;
 	min-width: 0 !important;
-	overflow: hidden;
+	overflow: visible;
 }
 .pict-panel-collapsed > *:not(.pict-panel-edge)
 {
-	visibility: hidden;
+	display: none;
 }
 
 /* Edge container — zero-width strip holding resize handle + tab */
