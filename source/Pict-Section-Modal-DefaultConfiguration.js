@@ -50,6 +50,18 @@ module.exports = (
 		"dismissible": true
 	},
 
+	"DefaultPanelOptions":
+	{
+		"position": "right",
+		"width": 340,
+		"minWidth": 200,
+		"maxWidth": 600,
+		"collapsible": true,
+		"collapsed": false,
+		"persist": false,
+		"persistKey": ""
+	},
+
 	"Templates": [],
 	"Renderables": [],
 
@@ -471,6 +483,147 @@ module.exports = (
 	left: -4px;
 	top: 50%;
 	margin-top: -4px;
+}
+
+/* ── Resizable / Collapsible Panels ──────────────── */
+.pict-panel
+{
+	position: relative;
+	transition: width 0.2s ease;
+	flex-shrink: 0;
+}
+.pict-panel-collapsed
+{
+	width: 0 !important;
+	min-width: 0 !important;
+	overflow: hidden;
+}
+.pict-panel-collapsed > *:not(.pict-panel-edge)
+{
+	visibility: hidden;
+}
+
+/* Edge container — zero-width strip holding resize handle + tab */
+.pict-panel-edge
+{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 0;
+	z-index: 50;
+	overflow: visible;
+}
+.pict-panel-edge-right { left: 0; }
+.pict-panel-edge-left  { right: 0; }
+
+/* Resize handle — thin strip, subtle by default */
+.pict-panel-resize
+{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 4px;
+	cursor: col-resize;
+	background: transparent;
+	transition: background 0.15s, width 0.15s;
+}
+.pict-panel-edge-right .pict-panel-resize
+{
+	left: -2px;
+	border-left: 1px solid var(--pict-panel-border, #DDD6CA);
+}
+.pict-panel-edge-left .pict-panel-resize
+{
+	right: -2px;
+	border-right: 1px solid var(--pict-panel-border, #DDD6CA);
+}
+.pict-panel-resize:hover,
+.pict-panel-edge:hover .pict-panel-resize
+{
+	width: 5px;
+	background: var(--pict-panel-accent, #2E7D74);
+	opacity: 0.5;
+}
+.pict-panel-resize.dragging
+{
+	width: 5px;
+	background: var(--pict-panel-accent, #2E7D74);
+	opacity: 1;
+	transition: none;
+}
+.pict-panel-collapsed .pict-panel-resize
+{
+	display: none;
+}
+
+/* Collapse tab — tucked sliver at rest, slides out on hover */
+.pict-panel-tab
+{
+	position: absolute;
+	top: 8px;
+	width: 6px;
+	height: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	background: var(--pict-panel-border, #DDD6CA);
+	border: 1px solid var(--pict-panel-border, #DDD6CA);
+	cursor: pointer;
+	color: var(--pict-panel-fg, #8A7F72);
+	font-size: 10px;
+	line-height: 1;
+	opacity: 0.35;
+	transition: opacity 0.25s, width 0.2s ease, height 0.2s ease, left 0.2s ease, right 0.2s ease, background 0.2s;
+	z-index: 51;
+}
+.pict-panel-edge:hover .pict-panel-tab,
+.pict-panel-tab:hover
+{
+	width: 18px;
+	height: 28px;
+	opacity: 1;
+	background: var(--pict-panel-bg, #FAF8F4);
+}
+/* Right panel: tab sticks out to the left */
+.pict-panel-edge-right .pict-panel-tab
+{
+	left: -7px;
+	border-right: none;
+	border-radius: 3px 0 0 3px;
+}
+.pict-panel-edge-right:hover .pict-panel-tab,
+.pict-panel-edge-right .pict-panel-tab:hover
+{
+	left: -19px;
+	border-radius: 4px 0 0 4px;
+}
+/* Left panel: tab sticks out to the right */
+.pict-panel-edge-left .pict-panel-tab
+{
+	right: -7px;
+	border-left: none;
+	border-radius: 0 3px 3px 0;
+}
+.pict-panel-edge-left:hover .pict-panel-tab,
+.pict-panel-edge-left .pict-panel-tab:hover
+{
+	right: -19px;
+	border-radius: 0 4px 4px 0;
+}
+/* When collapsed — slightly more visible since the panel is gone */
+.pict-panel-collapsed .pict-panel-tab
+{
+	width: 8px;
+	height: 24px;
+	opacity: 0.5;
+}
+.pict-panel-collapsed .pict-panel-tab:hover
+{
+	width: 18px;
+	height: 28px;
+	opacity: 1;
+	background: var(--pict-panel-bg, #FAF8F4);
 }
 `
 });

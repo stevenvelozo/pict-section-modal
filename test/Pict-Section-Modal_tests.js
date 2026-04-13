@@ -786,6 +786,273 @@ suite
 
 		suite
 		(
+			'Panel',
+			() =>
+			{
+				test
+				(
+					'panel() returns a handle with expected methods',
+					(fDone) =>
+					{
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
+						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
+
+						let tmpTarget = document.createElement('div');
+						tmpTarget.id = 'test-panel-1';
+						document.body.appendChild(tmpTarget);
+
+						let tmpHandle = tmpModal.panel('#test-panel-1', { position: 'right', width: 300 });
+
+						Expect(tmpHandle).to.have.property('collapse').that.is.a('function');
+						Expect(tmpHandle).to.have.property('expand').that.is.a('function');
+						Expect(tmpHandle).to.have.property('toggle').that.is.a('function');
+						Expect(tmpHandle).to.have.property('setWidth').that.is.a('function');
+						Expect(tmpHandle).to.have.property('destroy').that.is.a('function');
+
+						tmpHandle.destroy();
+						tmpTarget.remove();
+						fDone();
+					}
+				);
+
+				test
+				(
+					'panel() adds CSS classes and edge element to target',
+					(fDone) =>
+					{
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
+						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
+
+						let tmpTarget = document.createElement('div');
+						tmpTarget.id = 'test-panel-2';
+						document.body.appendChild(tmpTarget);
+
+						let tmpHandle = tmpModal.panel('#test-panel-2', { position: 'right', width: 350 });
+
+						Expect(tmpTarget.classList.contains('pict-panel')).to.be.true;
+						Expect(tmpTarget.classList.contains('pict-panel-right')).to.be.true;
+						Expect(tmpTarget.style.width).to.equal('350px');
+
+						let tmpEdge = tmpTarget.querySelector('.pict-panel-edge');
+						Expect(tmpEdge).to.not.be.null;
+						Expect(tmpEdge.querySelector('.pict-panel-resize')).to.not.be.null;
+						Expect(tmpEdge.querySelector('.pict-panel-tab')).to.not.be.null;
+
+						tmpHandle.destroy();
+						tmpTarget.remove();
+						fDone();
+					}
+				);
+
+				test
+				(
+					'collapse() and expand() toggle the collapsed class',
+					(fDone) =>
+					{
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
+						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
+
+						let tmpTarget = document.createElement('div');
+						tmpTarget.id = 'test-panel-3';
+						document.body.appendChild(tmpTarget);
+
+						let tmpHandle = tmpModal.panel('#test-panel-3', { width: 300 });
+
+						Expect(tmpTarget.classList.contains('pict-panel-collapsed')).to.be.false;
+
+						tmpHandle.collapse();
+						Expect(tmpTarget.classList.contains('pict-panel-collapsed')).to.be.true;
+
+						tmpHandle.expand();
+						Expect(tmpTarget.classList.contains('pict-panel-collapsed')).to.be.false;
+						Expect(tmpTarget.style.width).to.equal('300px');
+
+						tmpHandle.destroy();
+						tmpTarget.remove();
+						fDone();
+					}
+				);
+
+				test
+				(
+					'toggle() alternates collapsed state',
+					(fDone) =>
+					{
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
+						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
+
+						let tmpTarget = document.createElement('div');
+						tmpTarget.id = 'test-panel-4';
+						document.body.appendChild(tmpTarget);
+
+						let tmpHandle = tmpModal.panel('#test-panel-4', { width: 300 });
+
+						tmpHandle.toggle();
+						Expect(tmpTarget.classList.contains('pict-panel-collapsed')).to.be.true;
+
+						tmpHandle.toggle();
+						Expect(tmpTarget.classList.contains('pict-panel-collapsed')).to.be.false;
+
+						tmpHandle.destroy();
+						tmpTarget.remove();
+						fDone();
+					}
+				);
+
+				test
+				(
+					'setWidth() clamps to min/max',
+					(fDone) =>
+					{
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
+						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
+
+						let tmpTarget = document.createElement('div');
+						tmpTarget.id = 'test-panel-5';
+						document.body.appendChild(tmpTarget);
+
+						let tmpHandle = tmpModal.panel('#test-panel-5', { width: 300, minWidth: 200, maxWidth: 500 });
+
+						tmpHandle.setWidth(100);
+						Expect(tmpTarget.style.width).to.equal('200px');
+
+						tmpHandle.setWidth(800);
+						Expect(tmpTarget.style.width).to.equal('500px');
+
+						tmpHandle.setWidth(400);
+						Expect(tmpTarget.style.width).to.equal('400px');
+
+						tmpHandle.destroy();
+						tmpTarget.remove();
+						fDone();
+					}
+				);
+
+				test
+				(
+					'starts collapsed when options.collapsed is true',
+					(fDone) =>
+					{
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
+						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
+
+						let tmpTarget = document.createElement('div');
+						tmpTarget.id = 'test-panel-6';
+						document.body.appendChild(tmpTarget);
+
+						let tmpHandle = tmpModal.panel('#test-panel-6', { width: 300, collapsed: true });
+
+						Expect(tmpTarget.classList.contains('pict-panel-collapsed')).to.be.true;
+
+						tmpHandle.destroy();
+						tmpTarget.remove();
+						fDone();
+					}
+				);
+
+				test
+				(
+					'left panel uses correct CSS class',
+					(fDone) =>
+					{
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
+						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
+
+						let tmpTarget = document.createElement('div');
+						tmpTarget.id = 'test-panel-7';
+						document.body.appendChild(tmpTarget);
+
+						let tmpHandle = tmpModal.panel('#test-panel-7', { position: 'left', width: 250 });
+
+						Expect(tmpTarget.classList.contains('pict-panel-left')).to.be.true;
+
+						let tmpEdge = tmpTarget.querySelector('.pict-panel-edge-left');
+						Expect(tmpEdge).to.not.be.null;
+
+						tmpHandle.destroy();
+						tmpTarget.remove();
+						fDone();
+					}
+				);
+
+				test
+				(
+					'destroy() removes classes and edge element',
+					(fDone) =>
+					{
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
+						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
+
+						let tmpTarget = document.createElement('div');
+						tmpTarget.id = 'test-panel-8';
+						document.body.appendChild(tmpTarget);
+
+						let tmpHandle = tmpModal.panel('#test-panel-8', { width: 300 });
+
+						Expect(tmpTarget.querySelector('.pict-panel-edge')).to.not.be.null;
+
+						tmpHandle.destroy();
+
+						Expect(tmpTarget.classList.contains('pict-panel')).to.be.false;
+						Expect(tmpTarget.querySelector('.pict-panel-edge')).to.be.null;
+
+						tmpTarget.remove();
+						fDone();
+					}
+				);
+
+				test
+				(
+					'onToggle callback fires on collapse/expand',
+					(fDone) =>
+					{
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
+						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
+
+						let tmpTarget = document.createElement('div');
+						tmpTarget.id = 'test-panel-9';
+						document.body.appendChild(tmpTarget);
+
+						let tmpCallbacks = [];
+						let tmpHandle = tmpModal.panel('#test-panel-9',
+							{
+								width: 300,
+								onToggle: (pCollapsed) => { tmpCallbacks.push(pCollapsed); }
+							});
+
+						tmpHandle.collapse();
+						tmpHandle.expand();
+
+						Expect(tmpCallbacks).to.deep.equal([true, false]);
+
+						tmpHandle.destroy();
+						tmpTarget.remove();
+						fDone();
+					}
+				);
+
+				test
+				(
+					'panel() returns null handle for missing element',
+					(fDone) =>
+					{
+						let tmpPict = new libPict({ LogStreams: [{ loggertype: 'console', streamtype: 'console', level: 'error' }] });
+						let tmpModal = tmpPict.addView('TestModal', {}, libPictSectionModal);
+
+						let tmpHandle = tmpModal.panel('#does-not-exist', { width: 300 });
+
+						Expect(tmpHandle).to.have.property('toggle').that.is.a('function');
+						Expect(tmpHandle).to.have.property('destroy').that.is.a('function');
+						tmpHandle.toggle();
+						tmpHandle.destroy();
+						fDone();
+					}
+				);
+			}
+		);
+
+		suite
+		(
 			'Destroy',
 			() =>
 			{

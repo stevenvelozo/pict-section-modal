@@ -5,6 +5,7 @@ const libPictModalConfirm = require('./Pict-Modal-Confirm.js');
 const libPictModalWindow = require('./Pict-Modal-Window.js');
 const libPictModalToast = require('./Pict-Modal-Toast.js');
 const libPictModalTooltip = require('./Pict-Modal-Tooltip.js');
+const libPictModalPanel = require('./Pict-Modal-Panel.js');
 
 const _DefaultConfiguration = require('./Pict-Section-Modal-DefaultConfiguration.js');
 
@@ -26,6 +27,7 @@ class PictSectionModal extends libPictViewClass
 		this._window = new libPictModalWindow(this);
 		this._toast = new libPictModalToast(this);
 		this._tooltip = new libPictModalTooltip(this);
+		this._panel = new libPictModalPanel(this);
 	}
 
 	onBeforeInitialize()
@@ -139,6 +141,20 @@ class PictSectionModal extends libPictViewClass
 		return this._toast.toast(pMessage, pOptions);
 	}
 
+	// -- Panel API --
+
+	/**
+	 * Attach resizable/collapsible panel behavior to a DOM element.
+	 *
+	 * @param {string} pTargetSelector - CSS selector for the panel element
+	 * @param {object} [pOptions] - Options { position, width, minWidth, maxWidth, collapsible, collapsed, persist, persistKey, onResize, onToggle }
+	 * @returns {{ collapse, expand, toggle, setWidth, destroy }} Panel handle
+	 */
+	panel(pTargetSelector, pOptions)
+	{
+		return this._panel.create(pTargetSelector, pOptions);
+	}
+
 	// -- Cleanup API --
 
 	/**
@@ -182,9 +198,18 @@ class PictSectionModal extends libPictViewClass
 	/**
 	 * Clean up all DOM elements when the view is destroyed.
 	 */
+	/**
+	 * Destroy all active panels.
+	 */
+	destroyPanels()
+	{
+		this._panel.destroyAll();
+	}
+
 	destroy()
 	{
 		this.dismissAll();
+		this.destroyPanels();
 		this._overlay.destroy();
 		this._toast.destroy();
 		if (typeof super.destroy === 'function') { return super.destroy(); }
