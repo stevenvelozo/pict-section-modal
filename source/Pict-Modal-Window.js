@@ -19,6 +19,7 @@ class PictModalWindow
 	 * @param {Array} [pOptions.buttons] - Array of { Hash, Label, Style }
 	 * @param {boolean} [pOptions.closeable] - Whether the close button and overlay dismiss are enabled
 	 * @param {string} [pOptions.width] - CSS width value
+	 * @param {boolean} [pOptions.unbounded] - If true, removes the default 90vh/90vw viewport cap. The dialog will grow with its content and may extend beyond the viewport.
 	 * @param {function} [pOptions.onOpen] - Called after dialog is shown, receives dialog element
 	 * @param {function} [pOptions.onClose] - Called after dialog is dismissed
 	 * @returns {Promise<string|null>} Resolves with clicked button Hash, or null on close
@@ -47,6 +48,10 @@ class PictModalWindow
 
 		let tmpDialog = document.createElement('div');
 		tmpDialog.className = 'pict-modal-dialog';
+		if (pOptions.unbounded)
+		{
+			tmpDialog.className += ' pict-modal-dialog--unbounded';
+		}
 		tmpDialog.id = 'pict-modal-' + tmpId;
 		tmpDialog.setAttribute('role', 'dialog');
 		tmpDialog.setAttribute('aria-modal', 'true');

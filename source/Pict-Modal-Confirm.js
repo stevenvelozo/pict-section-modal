@@ -65,6 +65,10 @@ class PictModalConfirm
 
 		let tmpDialog = document.createElement('div');
 		tmpDialog.className = 'pict-modal-dialog';
+		if (pOptions.unbounded)
+		{
+			tmpDialog.className += ' pict-modal-dialog--unbounded';
+		}
 		tmpDialog.id = 'pict-modal-' + tmpId;
 		tmpDialog.setAttribute('role', 'dialog');
 		tmpDialog.setAttribute('aria-modal', 'true');
@@ -118,6 +122,10 @@ class PictModalConfirm
 
 		let tmpDialog = document.createElement('div');
 		tmpDialog.className = 'pict-modal-dialog';
+		if (pOptions.unbounded)
+		{
+			tmpDialog.className += ' pict-modal-dialog--unbounded';
+		}
 		tmpDialog.id = 'pict-modal-' + tmpId;
 		tmpDialog.setAttribute('role', 'dialog');
 		tmpDialog.setAttribute('aria-modal', 'true');

@@ -13,7 +13,8 @@ module.exports = (
 		"title": "Confirm",
 		"confirmLabel": "OK",
 		"cancelLabel": "Cancel",
-		"dangerous": false
+		"dangerous": false,
+		"unbounded": false
 	},
 
 	"DefaultDoubleConfirmOptions":
@@ -22,7 +23,8 @@ module.exports = (
 		"confirmLabel": "Confirm",
 		"cancelLabel": "Cancel",
 		"phrasePrompt": "Type \"{phrase}\" to confirm:",
-		"confirmPhrase": ""
+		"confirmPhrase": "",
+		"unbounded": false
 	},
 
 	"DefaultModalOptions":
@@ -31,7 +33,8 @@ module.exports = (
 		"content": "",
 		"buttons": [],
 		"closeable": true,
-		"width": "480px"
+		"width": "480px",
+		"unbounded": false
 	},
 
 	"DefaultTooltipOptions":
@@ -168,6 +171,15 @@ module.exports = (
 {
 	opacity: 1;
 	transform: translate(-50%, -50%) translateY(0);
+}
+
+/* Unbounded modifier — lets callers opt out of the 90vh/90vw viewport cap.
+   Use with caution: content taller than the viewport will push buttons
+   below the fold. */
+.pict-modal-dialog.pict-modal-dialog--unbounded
+{
+	max-height: none;
+	max-width: none;
 }
 
 .pict-modal-dialog-header
