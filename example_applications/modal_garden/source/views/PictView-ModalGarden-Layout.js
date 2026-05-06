@@ -248,6 +248,156 @@ class PictViewModalGardenLayout extends libPictView
 			);
 		}
 
+		// ── Nav menu dropdowns ──
+		let tmpNavProducts = document.getElementById('nav-products');
+		if (tmpNavProducts)
+		{
+			tmpNavProducts.addEventListener('click', (pEvent) =>
+			{
+				pEvent.preventDefault();
+				tmpModal.dropdown(tmpNavProducts,
+					{
+						items:
+						[
+							{ Hash: 'app',     Label: 'Application Suite' },
+							{ Hash: 'tools',   Label: 'Developer Tools' },
+							{ Hash: 'add-ons', Label: 'Add-ons & Integrations' },
+							{ Separator: true },
+							{ Hash: 'whats-new', Label: 'What\'s new', Hint: '5 new' }
+						]
+					});
+			});
+		}
+
+		let tmpNavResources = document.getElementById('nav-resources');
+		if (tmpNavResources)
+		{
+			tmpNavResources.addEventListener('click', (pEvent) =>
+			{
+				pEvent.preventDefault();
+				tmpModal.dropdown(tmpNavResources,
+					{
+						items:
+						[
+							{ Header: 'Learn' },
+							{ Hash: 'docs',     Label: 'Documentation' },
+							{ Hash: 'tutorials',Label: 'Tutorials' },
+							{ Hash: 'examples', Label: 'Examples' },
+							{ Header: 'Community' },
+							{ Hash: 'forum',    Label: 'Forum' },
+							{ Hash: 'discord',  Label: 'Discord' },
+							{ Hash: 'github',   Label: 'GitHub' }
+						]
+					});
+			});
+		}
+
+		let tmpNavAccount = document.getElementById('nav-account');
+		if (tmpNavAccount)
+		{
+			tmpNavAccount.addEventListener('click', (pEvent) =>
+			{
+				pEvent.preventDefault();
+				tmpModal.dropdown(tmpNavAccount,
+					{
+						align: 'right', // hang off the right edge so it doesn't run off screen
+						items:
+						[
+							{ Hash: 'profile',  Label: 'Profile',     Hint: 'jane@x.com' },
+							{ Hash: 'billing',  Label: 'Billing' },
+							{ Hash: 'settings', Label: 'Settings' },
+							{ Separator: true },
+							{ Hash: 'signout',  Label: 'Sign out', Style: 'danger' }
+						]
+					});
+			});
+		}
+
+		// ── Split-button dropdowns ──
+		let tmpSplitResult = document.getElementById('dropdown-split-result');
+		let fSetSplitResult = (pLabel) =>
+		{
+			if (!tmpSplitResult) { return; }
+			tmpSplitResult.textContent = 'Selected: ' + pLabel;
+			tmpSplitResult.className = 'result-display result-confirmed';
+		};
+
+		let tmpDownloadMore = document.getElementById('btn-download-more');
+		if (tmpDownloadMore)
+		{
+			tmpDownloadMore.addEventListener('click', () =>
+			{
+				tmpModal.dropdown(tmpDownloadMore,
+					{
+						align: 'right',
+						items:
+						[
+							{ Header: 'Export format' },
+							{ Hash: 'csv',  Label: 'CSV',  Hint: 'default' },
+							{ Hash: 'json', Label: 'JSON' },
+							{ Hash: 'xlsx', Label: 'Excel (XLSX)' },
+							{ Hash: 'pdf',  Label: 'PDF report' },
+							{ Separator: true },
+							{ Hash: 'parquet', Label: 'Apache Parquet', Disabled: true,
+							  Tooltip: 'Parquet export requires the Pro plan.' }
+						]
+					}).then((pChoice) => { if (pChoice) { fSetSplitResult('Download as ' + pChoice.Item.Label); } });
+			});
+		}
+		let tmpDownloadMain = document.getElementById('btn-download');
+		if (tmpDownloadMain)
+		{
+			tmpDownloadMain.addEventListener('click', () => { fSetSplitResult('Download CSV (default)'); });
+		}
+
+		let tmpDeployMore = document.getElementById('btn-deploy-more');
+		if (tmpDeployMore)
+		{
+			tmpDeployMore.addEventListener('click', () =>
+			{
+				tmpModal.dropdown(tmpDeployMore,
+					{
+						align: 'right',
+						items:
+						[
+							{ Hash: 'staging',    Label: 'Deploy to staging' },
+							{ Hash: 'production', Label: 'Deploy to production', Style: 'primary' },
+							{ Separator: true },
+							{ Hash: 'rollback',   Label: 'Roll back last deploy', Style: 'danger' }
+						]
+					}).then((pChoice) => { if (pChoice) { fSetSplitResult(pChoice.Item.Label); } });
+			});
+		}
+		let tmpDeployMain = document.getElementById('btn-deploy');
+		if (tmpDeployMain)
+		{
+			tmpDeployMain.addEventListener('click', () => { fSetSplitResult('Deploy (default target)'); });
+		}
+
+		let tmpDeleteMore = document.getElementById('btn-delete-more');
+		if (tmpDeleteMore)
+		{
+			tmpDeleteMore.addEventListener('click', () =>
+			{
+				tmpModal.dropdown(tmpDeleteMore,
+					{
+						align: 'right',
+						items:
+						[
+							{ Hash: 'archive',  Label: 'Archive instead' },
+							{ Hash: 'trash',    Label: 'Move to trash' },
+							{ Separator: true },
+							{ Hash: 'destroy',  Label: 'Delete permanently', Style: 'danger' }
+						]
+					}).then((pChoice) => { if (pChoice) { fSetSplitResult(pChoice.Item.Label); } });
+			});
+		}
+		let tmpDeleteMain = document.getElementById('btn-delete');
+		if (tmpDeleteMain)
+		{
+			tmpDeleteMain.addEventListener('click', () => { fSetSplitResult('Delete (default action)'); });
+		}
+
 		return super.onAfterRender();
 	}
 }
@@ -467,6 +617,59 @@ PictViewModalGardenLayout.default_configuration =
 			border-top: 1px solid #e5e7eb;
 			margin: 0 0 28px;
 		}
+		/* ── Nav menu (dropdown anchors) ─────────────────── */
+		.garden-nav
+		{
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			padding: 8px 12px;
+			background: #ffffff;
+			border: 1px solid #e5e7eb;
+			border-radius: 8px;
+		}
+		.garden-nav-link
+		{
+			display: inline-flex;
+			align-items: center;
+			gap: 4px;
+			padding: 6px 12px;
+			color: #1f2937;
+			text-decoration: none;
+			border-radius: 6px;
+			font-weight: 500;
+			cursor: pointer;
+		}
+		.garden-nav-link:hover
+		{
+			background: #f3f4f6;
+			color: #111827;
+		}
+		.garden-nav-caret
+		{
+			font-size: 11px;
+			color: #6b7280;
+		}
+		/* ── Split-button dropdowns ──────────────────────── */
+		.garden-split-button
+		{
+			display: inline-flex;
+			align-items: stretch;
+		}
+		.garden-split-main
+		{
+			border-top-right-radius: 0 !important;
+			border-bottom-right-radius: 0 !important;
+		}
+		.garden-split-arrow
+		{
+			border-top-left-radius: 0 !important;
+			border-bottom-left-radius: 0 !important;
+			border-left: 1px solid rgba(255, 255, 255, 0.25) !important;
+			padding-left: 10px !important;
+			padding-right: 10px !important;
+			min-width: 32px;
+		}
 	`,
 
 	Templates:
@@ -601,6 +804,43 @@ PictViewModalGardenLayout.default_configuration =
 			<span id="rich-tooltip-action" class="rich-tooltip-target">Hover for Status</span>
 		</div>
 		<div id="code-snippet-rich-tooltips"></div>
+	</div>
+
+	<hr class="section-divider" />
+
+	<!-- Dropdowns: Nav menu -->
+	<div class="garden-card">
+		<h2>Nav Menu Dropdown</h2>
+		<p class="card-description">A dropdown anchored under a nav link. Useful for header navigation with grouped destinations. Auto-positions and clamps inside the viewport, dismisses on click-outside or Escape.</p>
+		<div class="garden-nav">
+			<a href="#" id="nav-home" class="garden-nav-link">Home</a>
+			<a href="#" id="nav-products" class="garden-nav-link garden-nav-trigger">Products <span class="garden-nav-caret">▾</span></a>
+			<a href="#" id="nav-resources" class="garden-nav-link garden-nav-trigger">Resources <span class="garden-nav-caret">▾</span></a>
+			<a href="#" id="nav-account" class="garden-nav-link garden-nav-trigger">Account <span class="garden-nav-caret">▾</span></a>
+		</div>
+		<div id="code-snippet-dropdown-nav"></div>
+	</div>
+
+	<!-- Dropdowns: Split-button addendum -->
+	<div class="garden-card">
+		<h2>Split-Button Dropdowns</h2>
+		<p class="card-description">A primary action button paired with a chevron that opens alternates. The chevron is the dropdown's anchor; the menu aligns to its right edge so it stays under the addendum.</p>
+		<div class="button-row">
+			<div class="garden-split-button">
+				<button id="btn-download" class="garden-btn garden-btn-primary garden-split-main">Download CSV</button>
+				<button id="btn-download-more" class="garden-btn garden-btn-primary garden-split-arrow" aria-label="More download options">▾</button>
+			</div>
+			<div class="garden-split-button">
+				<button id="btn-deploy" class="garden-btn garden-btn-success garden-split-main">Deploy</button>
+				<button id="btn-deploy-more" class="garden-btn garden-btn-success garden-split-arrow" aria-label="More deploy options">▾</button>
+			</div>
+			<div class="garden-split-button">
+				<button id="btn-delete" class="garden-btn garden-btn-danger garden-split-main">Delete</button>
+				<button id="btn-delete-more" class="garden-btn garden-btn-danger garden-split-arrow" aria-label="More delete options">▾</button>
+			</div>
+		</div>
+		<div class="result-display result-default" id="dropdown-split-result">Selected: (none)</div>
+		<div id="code-snippet-dropdown-split"></div>
 	</div>
 
 </div>

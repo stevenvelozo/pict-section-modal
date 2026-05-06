@@ -113,6 +113,20 @@ module.exports = (
 	--pict-modal-tooltip-border-radius: 4px;
 	--pict-modal-tooltip-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
+	/* Dropdown */
+	--pict-modal-dropdown-bg: #ffffff;
+	--pict-modal-dropdown-fg: #1a1a1a;
+	--pict-modal-dropdown-border: #e0e0e0;
+	--pict-modal-dropdown-border-radius: 6px;
+	--pict-modal-dropdown-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+	--pict-modal-dropdown-item-hover-bg: rgba(37, 99, 235, 0.10);
+	--pict-modal-dropdown-item-hover-fg: #1a1a1a;
+	--pict-modal-dropdown-item-disabled-fg: #9aa0a6;
+	--pict-modal-dropdown-separator: #e8e8e8;
+	--pict-modal-dropdown-header-fg: #6b7280;
+	--pict-modal-dropdown-danger-fg: #dc2626;
+	--pict-modal-dropdown-primary-fg: #2563eb;
+
 	/* Typography */
 	--pict-modal-font-family: system-ui, -apple-system, sans-serif;
 	--pict-modal-font-size: 14px;
@@ -495,6 +509,114 @@ module.exports = (
 	left: -4px;
 	top: 50%;
 	margin-top: -4px;
+}
+
+/* ── Dropdown ─────────────────────────────────────────────────────────
+   Anchor-positioned menu (no overlay). Used for nav menus and
+   "split button" addenda — see Pict-Modal-Dropdown.js.
+*/
+.pict-modal-dropdown
+{
+	position: fixed;
+	z-index: 1025;
+	min-width: 160px;
+	max-width: 360px;
+	max-height: 60vh;
+	overflow-y: auto;
+	background: var(--pict-modal-dropdown-bg);
+	color: var(--pict-modal-dropdown-fg);
+	border: 1px solid var(--pict-modal-dropdown-border);
+	border-radius: var(--pict-modal-dropdown-border-radius);
+	box-shadow: var(--pict-modal-dropdown-shadow);
+	font-family: var(--pict-modal-font-family);
+	font-size: var(--pict-modal-font-size);
+	padding: 4px 0;
+	opacity: 0;
+	transform: translateY(-4px);
+	transition: opacity var(--pict-modal-transition-duration) ease,
+	            transform var(--pict-modal-transition-duration) ease;
+}
+
+.pict-modal-dropdown.pict-modal-dropdown--above { transform: translateY(4px); }
+
+.pict-modal-dropdown.pict-modal-visible
+{
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.pict-modal-dropdown-item
+{
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 7px 14px;
+	cursor: pointer;
+	user-select: none;
+	color: inherit;
+	outline: none;
+}
+
+.pict-modal-dropdown-item:hover,
+.pict-modal-dropdown-item:focus
+{
+	background: var(--pict-modal-dropdown-item-hover-bg);
+	color: var(--pict-modal-dropdown-item-hover-fg);
+}
+
+.pict-modal-dropdown-item--disabled
+{
+	cursor: not-allowed;
+	color: var(--pict-modal-dropdown-item-disabled-fg);
+}
+
+.pict-modal-dropdown-item--disabled:hover,
+.pict-modal-dropdown-item--disabled:focus
+{
+	background: transparent;
+	color: var(--pict-modal-dropdown-item-disabled-fg);
+}
+
+.pict-modal-dropdown-item--primary { color: var(--pict-modal-dropdown-primary-fg); }
+.pict-modal-dropdown-item--danger  { color: var(--pict-modal-dropdown-danger-fg); }
+
+.pict-modal-dropdown-item-icon
+{
+	flex: 0 0 auto;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 16px;
+	height: 16px;
+}
+
+.pict-modal-dropdown-item-icon svg { width: 100%; height: 100%; display: block; }
+
+.pict-modal-dropdown-item-label { flex: 1 1 auto; min-width: 0; }
+
+.pict-modal-dropdown-item-hint
+{
+	flex: 0 0 auto;
+	font-size: 11px;
+	opacity: 0.6;
+	margin-left: 12px;
+}
+
+.pict-modal-dropdown-separator
+{
+	height: 1px;
+	background: var(--pict-modal-dropdown-separator);
+	margin: 4px 0;
+}
+
+.pict-modal-dropdown-header
+{
+	padding: 6px 14px 2px;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--pict-modal-dropdown-header-fg);
 }
 
 /* ── Resizable / Collapsible Panels ──────────────── */

@@ -88,6 +88,22 @@ const _CodeSnippets =
 		ReadOnly: true,
 		LineNumbers: false,
 		DefaultCode: "let tmpHandle = tmpModal.richTooltip(\n\ttmpElement,\n\t'<strong>User Profile</strong><p>Jane Doe</p>',\n\t{ position: 'bottom', maxWidth: '280px', interactive: true }\n);\n// tmpHandle.destroy() removes the tooltip"
+	},
+	{
+		ViewIdentifier: 'CodeSnippet-DropdownNav',
+		TargetElementAddress: '#code-snippet-dropdown-nav',
+		Language: 'javascript',
+		ReadOnly: true,
+		LineNumbers: false,
+		DefaultCode: "// Anchor a menu under a nav link\ntmpModal.dropdown(navLinkEl,\n{\n\titems:\n\t[\n\t\t{ Hash: 'app',     Label: 'Application Suite' },\n\t\t{ Hash: 'tools',   Label: 'Developer Tools' },\n\t\t{ Separator: true },\n\t\t{ Hash: 'whats-new', Label: 'What\\'s new', Hint: '5 new' }\n\t]\n}).then((pChoice) => { if (pChoice) console.log(pChoice.Hash); });"
+	},
+	{
+		ViewIdentifier: 'CodeSnippet-DropdownSplit',
+		TargetElementAddress: '#code-snippet-dropdown-split',
+		Language: 'javascript',
+		ReadOnly: true,
+		LineNumbers: false,
+		DefaultCode: "// Split-button: chevron is the dropdown anchor; align right\n// keeps the menu under the addendum even on long labels.\ntmpModal.dropdown(arrowBtnEl,\n{\n\talign: 'right',\n\titems:\n\t[\n\t\t{ Header: 'Export format' },\n\t\t{ Hash: 'csv',  Label: 'CSV',  Hint: 'default' },\n\t\t{ Hash: 'json', Label: 'JSON' },\n\t\t{ Hash: 'xlsx', Label: 'Excel (XLSX)' },\n\t\t{ Separator: true },\n\t\t{ Hash: 'parquet', Label: 'Apache Parquet',\n\t\t  Disabled: true, Tooltip: 'Pro plan only' }\n\t]\n});"
 	}
 ];
 

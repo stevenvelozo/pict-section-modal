@@ -6,6 +6,7 @@ const libPictModalWindow = require('./Pict-Modal-Window.js');
 const libPictModalToast = require('./Pict-Modal-Toast.js');
 const libPictModalTooltip = require('./Pict-Modal-Tooltip.js');
 const libPictModalPanel = require('./Pict-Modal-Panel.js');
+const libPictModalDropdown = require('./Pict-Modal-Dropdown.js');
 
 const _DefaultConfiguration = require('./Pict-Section-Modal-DefaultConfiguration.js');
 
@@ -28,6 +29,7 @@ class PictSectionModal extends libPictViewClass
 		this._toast = new libPictModalToast(this);
 		this._tooltip = new libPictModalTooltip(this);
 		this._panel = new libPictModalPanel(this);
+		this._dropdown = new libPictModalDropdown(this);
 	}
 
 	onBeforeInitialize()
@@ -141,6 +143,31 @@ class PictSectionModal extends libPictViewClass
 		return this._toast.toast(pMessage, pOptions);
 	}
 
+	// -- Dropdown API --
+
+	/**
+	 * Open an anchor-positioned dropdown menu (no backdrop, click-outside
+	 * dismisses). Useful for nav menus and split-button addenda.
+	 *
+	 * @param {HTMLElement|string|object} pAnchor - Element, CSS selector, or
+	 *   { left, top, width, height } rect for context-menu style anchoring.
+	 * @param {object} pOptions - { items, align, position, minWidth, maxHeight,
+	 *   className, closeOnSelect, onSelect, onClose }
+	 * @returns {Promise<{Hash, Item}|null>} Selection or null on dismiss.
+	 */
+	dropdown(pAnchor, pOptions)
+	{
+		return this._dropdown.dropdown(pAnchor, pOptions);
+	}
+
+	/**
+	 * Dismiss any open dropdown.
+	 */
+	dismissDropdowns()
+	{
+		this._dropdown.dismissAll();
+	}
+
 	// -- Panel API --
 
 	/**
@@ -193,6 +220,7 @@ class PictSectionModal extends libPictViewClass
 		this.dismissModals();
 		this.dismissTooltips();
 		this.dismissToasts();
+		this.dismissDropdowns();
 	}
 
 	/**
