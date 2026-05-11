@@ -1,0 +1,127 @@
+{
+	"Hash":          "acme-default",
+	"Name":          "Acme Default",
+	"Version":       "0.0.1",
+	"Description":   "Acme Widgets — warm paper-and-ink light mode paired with a deep slate dark mode. The brand orange + teal accents come through `--brand-color-*-mode` and the matching ::after stripes the chrome paints automatically; this theme just defines the base surfaces, text, and supporting tokens.",
+	"Comprehensive": true,
+	"Modes":
+	{
+		"Strategy": "system",
+		"Default":  "light"
+	},
+	"Tokens":
+	{
+		"Color":
+		{
+			"Background":
+			{
+				"Primary":   { "Light": "#fff8f3", "Dark": "#15191e" },
+				"Secondary": { "Light": "#f3e8db", "Dark": "#1c2128" },
+				"Tertiary":  { "Light": "#e8d8c4", "Dark": "#252b33" },
+				"Panel":     { "Light": "#fffbf7", "Dark": "#1d2228" },
+				"Hover":     { "Light": "#f7ebda", "Dark": "#252c34" },
+				"Selected":  { "Light": "#ffe2cc", "Dark": "#3a2a1f" }
+			},
+			"Text":
+			{
+				"Primary":     { "Light": "#231c14", "Dark": "#f2ece4" },
+				"Secondary":   { "Light": "#523f2c", "Dark": "#c5beb3" },
+				"Muted":       { "Light": "#7a6a54", "Dark": "#8c8478" },
+				"Placeholder": { "Light": "#a5957d", "Dark": "#6a6358" }
+			},
+			"Brand":
+			{
+				"Primary":      { "Light": "#c63a14", "Dark": "#ff7a4a" },
+				"PrimaryHover": { "Light": "#a02c0a", "Dark": "#ff9468" },
+				"Accent":       { "Light": "#0d7a82", "Dark": "#5fc5cb" }
+			},
+			"Border":
+			{
+				"Default": { "Light": "#d4c4ad", "Dark": "#3a3f47" },
+				"Light":   { "Light": "#e8dccb", "Dark": "#2a2f35" },
+				"Strong":  { "Light": "#a08a6c", "Dark": "#585f68" }
+			},
+			"Status":
+			{
+				"Success": { "Light": "#2e7a3a", "Dark": "#5fc377" },
+				"Warning": { "Light": "#a86b00", "Dark": "#f0b84a" },
+				"Error":   { "Light": "#b62828", "Dark": "#ff7373" },
+				"Info":    { "Light": "#1e6fa8", "Dark": "#5fb4ff" }
+			},
+			"Scrollbar":
+			{
+				"Track": { "Light": "#f3e8db", "Dark": "#1c2128" },
+				"Thumb": { "Light": "#c4b094", "Dark": "#3a4048" },
+				"Hover": { "Light": "#a08a6c", "Dark": "#5a626c" }
+			},
+			"Selection":
+			{
+				"Background": { "Light": "#ffd6b8", "Dark": "#4a3528" },
+				"Text":       { "Light": "#231c14", "Dark": "#f2ece4" }
+			},
+			"Shadow":
+			{
+				"Color": { "Light": "rgba(64, 40, 16, 0.12)", "Dark": "rgba(0, 0, 0, 0.5)" }
+			}
+		},
+		"Typography":
+		{
+			"Family":
+			{
+				"Sans":  "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+				"Serif": "ui-serif, Georgia, 'Times New Roman', serif",
+				"Mono":  "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace"
+			},
+			"Size":
+			{
+				"XS": "11px",
+				"SM": "13px",
+				"MD": "14px",
+				"LG": "16px",
+				"XL": "20px"
+			}
+		},
+		"Spacing":
+		{
+			"XS": "4px",
+			"SM": "8px",
+			"MD": "12px",
+			"LG": "20px",
+			"XL": "32px"
+		},
+		"Radius":
+		{
+			"SM": "4px",
+			"MD": "6px",
+			"LG": "10px",
+			"Pill": "999px"
+		},
+		"Shadow":
+		{
+			"SM": "0 1px 2px var(--theme-color-shadow-color)",
+			"MD": "0 2px 6px var(--theme-color-shadow-color)",
+			"LG": "0 6px 18px var(--theme-color-shadow-color)"
+		},
+		"ZIndex":
+		{
+			"Base":     "0",
+			"Dropdown": "100",
+			"Sticky":   "200",
+			"Overlay":  "900",
+			"Modal":    "1000",
+			"Toast":    "2000",
+			"Tooltip":  "3000"
+		},
+		"Duration":
+		{
+			"Fast":   "100ms",
+			"Normal": "200ms",
+			"Slow":   "400ms"
+		}
+	},
+	"Brand":
+	{
+		"Name":    "Acme Widgets",
+		"Tagline": "Quality goods since 1932"
+	}
+}

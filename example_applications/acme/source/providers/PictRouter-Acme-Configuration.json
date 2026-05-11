@@ -1,0 +1,22 @@
+{
+	"ProviderIdentifier": "Pict-Router",
+
+	"AutoInitialize":        true,
+	"AutoInitializeOrdinal": 0,
+
+	"Routes":
+	[
+		{
+			"path":     "/About",
+			"template": "{~LV:Pict.PictApplication.showView(`Acme-About`, `About`)~}"
+		},
+		{
+			"path":     "/Legal",
+			"template": "{~LV:Pict.PictApplication.showView(`Acme-Legal`, `Legal`)~}"
+		},
+		{
+			"path":     "/Store",
+			"template": "{~LV:Pict.PictApplication.showView(`Acme-Store`, `Store`)~}"
+		}
+	]
+}

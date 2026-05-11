@@ -3,9 +3,9 @@
 [![npm version](https://badge.fury.io/js/pict-section-modal.svg)](https://www.npmjs.com/package/pict-section-modal)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A modal dialog, confirmation, tooltip, and toast notification section view for the [Pict](https://github.com/stevenvelozo/pict) application framework. Drop in a single view to get promise-based confirmations, custom floating windows, auto-dismissing toasts, and hover tooltips -- all styled through CSS custom properties.
+A modal dialog, confirmation, tooltip, toast notification, and **responsive layout shell** section view for the [Pict](https://github.com/stevenvelozo/pict) application framework. Drop in a single view to get promise-based confirmations, custom floating windows, auto-dismissing toasts, hover tooltips, and a panel-based application shell with built-in responsive behaviour -- all styled through CSS custom properties.
 
-Pict-Section-Modal provides a complete notification and dialog toolkit -- confirm dialogs, double-confirm safety gates, custom modal windows with arbitrary content, toast notifications with stacking, and simple or rich interactive tooltips -- all composable through the Fable service provider pattern.
+Pict-Section-Modal provides a complete notification and dialog toolkit -- confirm dialogs, double-confirm safety gates, custom modal windows with arbitrary content, toast notifications with stacking, simple or rich interactive tooltips, plus a viewport-filling layout shell with resizable side panels that fold into top drawers at narrow widths -- all composable through the Fable service provider pattern.
 
 ## Features
 
@@ -14,6 +14,7 @@ Pict-Section-Modal provides a complete notification and dialog toolkit -- confir
 - **Custom Modal Windows** -- Arbitrary HTML content with configurable buttons, closeable header, and lifecycle callbacks
 - **Toast Notifications** -- Auto-dismissing stacked notifications in six screen positions with four severity types
 - **Tooltips** -- Simple text tooltips and rich HTML tooltips with directional positioning and auto-flip
+- **Layout Shell** -- Viewport-filling panel layout (top/bottom/left/right + center) with resizable, collapsible panels that flip to top drawers on narrow viewports
 - **CSS Theming** -- 30+ CSS custom properties for full visual customization without touching source code
 - **Shared Overlay** -- Reference-counted backdrop shared across stacked modals with click-to-dismiss support
 - **Keyboard & Focus** -- Escape key dismissal, focus trapping, and ARIA attributes for accessibility
@@ -143,6 +144,166 @@ let tmpRichTip = tmpModal.richTooltip(document.getElementById('status'),
 // Remove a tooltip binding
 tmpTip.destroy();
 ```
+
+### Shell (responsive panel layout)
+
+The shell is a viewport-filling layout container with addressable side
+panels (top / bottom / left / right) plus a center workspace. Panels
+can be **fixed**, **collapsible**, or **resizable**, each with their
+own collapse-tab UI, persisted state, and — crucially — **responsive
+behaviour**: a side panel can flip to a top drawer at narrow viewports
+so the workspace gets full width instead of being pinched to nothing.
+
+A pict-section-modal view exposes the shell via `.shell(viewport, opts)`.
+
+#### Quick start
+
+```javascript
+const tmpShell = tmpModal.shell(document.getElementById('App'), {
+    PersistenceKey: 'my-app-layout'    // localStorage scope (optional)
+});
+
+// Topbar — fixed 56px, never collapses
+tmpShell.addPanel({
+    Hash: 'topbar',
+    Side: 'top',
+    Mode: 'fixed',
+    Size: 56,
+    ContentDestinationId: 'My-TopBar',
+    ContentView: 'My-TopBar-View'      // shell auto-renders this Pict view
+});
+
+// Sidebar — resizable, responsive drawer at < 900px
+tmpShell.addPanel({
+    Hash: 'sidebar',
+    Side: 'left',
+    Mode: 'resizable',
+    Size: 280,                         // initial width
+    MinSize: 200,
+    MaxSize: 480,
+    Title: 'Modules',
+    ContentDestinationId: 'My-Sidebar',
+    ContentView: 'My-Sidebar-View',
+    ResponsiveDrawer: 900              // flip to top drawer below 900px
+});
+
+// Statusbar — fixed 32px at the bottom
+tmpShell.addPanel({
+    Hash: 'statusbar',
+    Side: 'bottom',
+    Mode: 'fixed',
+    Size: 32,
+    ContentDestinationId: 'My-StatusBar',
+    ContentView: 'My-StatusBar-View'
+});
+```
+
+#### `addPanel(config)` options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `Hash` | string | auto | Identifier for `getPanel()` / `openPanel()` lookups |
+| `Side` | `'top'`/`'right'`/`'bottom'`/`'left'` | `'top'` | Which edge of the shell the panel docks to |
+| `Mode` | `'fixed'`/`'collapsible'`/`'resizable'` | `'fixed'` | Whether the user can collapse or resize the panel |
+| `Position` | `'pinned'`/`'overlay'` | `'pinned'` | `'overlay'` floats the panel absolutely over the center via the shell's overlay layer |
+| `Size` | number (px) | 280 (sides) / 80 (top/bottom) | Initial size along the panel's main axis |
+| `MinSize` | number (px) | 40 | Clamp lower bound when resizing |
+| `MaxSize` | number (px) | 1200 | Clamp upper bound when resizing |
+| `CollapsedSize` | number (px) | 24 | Visible thickness when collapsed (just the tab) |
+| `Collapsed` | boolean | `false` | Initial collapsed state |
+| `Title` | string | `''` | Shown on the collapse-tab + as the panel's accessible name |
+| `Icon` | string | `''` | Optional HTML icon shown on the collapse-tab |
+| `Persist` | boolean | `true` | Persist Size/Collapsed to localStorage under the shell's `PersistenceKey` |
+| `ContentDestinationId` | string | none | `id` for the inner div hosts render into |
+| `ContentView` | string | none | A Pict view identifier the shell auto-renders into the destination at creation + on every expand |
+| `ResponsiveDrawer` | number (px) | `0` (off) | Below this viewport width, the panel re-parents into a top-drawer layout — see below |
+| `DrawerHeight` | string | `'33vh'` | CSS height of the drawer in responsive mode (CSS units: px / vh / %) |
+| `OnExpand` / `OnCollapse` / `OnToggle` | function | none | Lifecycle hooks |
+
+#### Responsive drawer mode (`ResponsiveDrawer`)
+
+The pattern: a side panel pinches the center on desktop, but a narrow
+viewport (tablet portrait, docked window, half-screen split) can't
+afford that 200–300px sacrifice. Setting `ResponsiveDrawer: 900` (px)
+tells the shell to flip the panel into a **top drawer** below that
+breakpoint:
+
+- The shell's middle row switches from `flex-direction: row` to
+  `column`. The side panel stretches to full width and becomes a top
+  drawer above the workspace center; the center reflows to use the
+  full row width.
+- **Collapsed in drawer mode** = the drawer shrinks to an 18px strip
+  (just the collapse-tab is visible). The workspace gets the full
+  remaining height.
+- **Expanded in drawer mode** = the drawer takes its `DrawerHeight`
+  (default `33vh`). The collapse-tab sits flush against the drawer's
+  bottom edge as a handle, with its top edge merging into the drawer
+  content above so the tab reads as a labelled extension of the
+  drawer rather than a detached UI element.
+- The drawer's chrome background is `background-clip: content-box`-ed
+  so the tab's surrounding strip is transparent — it reads as
+  belonging to the workspace, not as a separate drawer band.
+- Hover on the tab grows its **width only** (64 → 96px), so the
+  hover affordance is visible but doesn't push into adjacent chrome.
+- Above the breakpoint the panel snaps back into the docked side
+  stack. User collapse/expand state is preserved across the
+  transition.
+
+`ResponsiveDrawer: 0` (the default) disables the behaviour — the panel
+stays docked at every viewport width.
+
+The breakpoint is enforced by a `matchMedia` listener with a
+`window.resize` fallback (matchMedia change events occasionally miss
+fast crossings on some browsers). State transitions are idempotent —
+a re-fire of the same target state is a no-op.
+
+#### `Panel` instance API
+
+`shell.addPanel()` returns a panel handle. Useful methods:
+
+| Method | Description |
+|---|---|
+| `panel.collapse()` / `panel.expand()` / `panel.toggle()` | Set collapsed state |
+| `panel.popup()` | Idempotent "show me": expand if collapsed, flash + re-render content if already open |
+| `panel.setSize(px)` | Programmatic resize (respects MinSize/MaxSize) |
+| `panel.getContentEl()` | The inner content element (host's destination div) |
+| `panel.getContentView()` | The bound `ContentView` Pict view instance, or null |
+| `panel.destroy()` | Remove the panel, tear down listeners |
+| `panel.El` | The root DOM element |
+| `panel.Collapsed` / `panel.Size` / `panel.Side` / `panel.Mode` | Current state |
+
+#### `Shell` instance API
+
+`tmpModal.shell()` returns a shell handle. Useful methods:
+
+| Method | Description |
+|---|---|
+| `shell.addPanel(config)` | Add a panel, returns the panel handle |
+| `shell.getPanel(hash)` | Look up a panel by hash, or null |
+| `shell.getPanels()` | Array of all panel handles |
+| `shell.openPanel(hash)` | Idempotent "show me" — equivalent to `getPanel(hash).popup()`, null-safe |
+| `shell.center(opts)` | Configure the center workspace (optionally with a `ContentDestinationId`) |
+| `shell.getCenterEl()` | The center workspace element |
+
+#### CSS class hooks
+
+Hosts can target these classes for additional styling:
+
+| Class | Where |
+|---|---|
+| `.pict-modal-shell` | Shell wrapper |
+| `.pict-modal-shell-row` `-top` / `-middle` / `-bottom` | The three row containers |
+| `.pict-modal-shell-side` `-left` / `-right` | The two side stacks inside the middle row |
+| `.pict-modal-shell-center` | The center workspace inside the middle row |
+| `.pict-modal-shell-panel` `-top` / `-right` / `-bottom` / `-left` | Each panel's root, with side modifier |
+| `.pict-modal-shell-panel-mode-fixed` / `-collapsible` / `-resizable` | Mode modifier |
+| `.pict-modal-shell-panel-overlay` | Set when `Position: 'overlay'` |
+| `.pict-modal-shell-panel-drawer` | Set on the panel when responsive drawer mode is active |
+| `.pict-modal-shell-drawer-active` | Set on the middle row when at least one panel is in drawer mode |
+| `.pict-modal-shell-panel-collapsed` | Set on a panel when collapsed |
+| `.pict-modal-shell-panel-content-inner` | The host's content destination div |
+
+---
 
 ### Cleanup
 

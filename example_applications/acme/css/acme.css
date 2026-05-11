@@ -1,0 +1,43 @@
+/* ───────────────────────────────────────────────────────────────────
+   Acme Widgets — page-level CSS.
+
+   Everything *inside* the chrome (topbar, statusbar, sidebar, page
+   content) is styled by view-level CSS injected at runtime by Pict's
+   CSSMap. This file is only the absolute-minimum page chrome the
+   browser sees before any JS runs:
+
+   - html/body fill the viewport
+   - the application root container fills its parent
+   - body inherits the theme's primary background so there's no flash
+     of white before the chrome paints
+
+   Every other color is a theme token — change theme in the gear menu
+   and the whole UI re-themes including the bits below.
+   ─────────────────────────────────────────────────────────────────── */
+
+html, body
+{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+	font-size: 14px;
+	color: var(--theme-color-text-primary, #1a1a1a);
+	background: var(--theme-color-background-primary, #ffffff);
+}
+
+#Acme-Application-Container
+{
+	height: 100%;
+	width: 100%;
+}
+
+/* Reduce focus-ring noise but keep it accessible for keyboard nav.
+   Sidebar inputs already have their own focus style. */
+button:focus-visible,
+a:focus-visible
+{
+	outline: 2px solid var(--brand-color-primary-mode, currentColor);
+	outline-offset: 2px;
+}

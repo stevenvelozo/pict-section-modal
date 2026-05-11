@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Acme Widgets — pict-section-modal example application demonstrating full chrome integration with pict-section-theme">
+
+		<title>Acme Widgets</title>
+
+		<!--
+			Note: no <link rel="icon"> is needed here. Acme-Brand.js
+			ships inline Favicon + FaviconDark SVGs as part of its
+			brand block, and pict-section-theme's libThemeBrand
+			auto-injects a <link rel="icon"> into the document head
+			when the brand is applied — meaning the browser tab picks
+			up the correct light/dark favicon at boot, automatically.
+			Apps that prefer disk-based favicons can put them here
+			instead — Acme just demonstrates the inline-SVG path.
+		-->
+
+		<!-- Application stylesheet (page-level only — chrome CSS is
+		     injected at runtime by Pict views via CSSMap). -->
+		<link href="css/acme.css" rel="stylesheet">
+
+		<!-- PICT dynamic view CSS container. Views inject CSS strings
+		     into this <style> at runtime via this.pict.CSSMap.injectCSS(). -->
+		<style id="PICT-CSS"></style>
+
+		<!-- Load the PICT library + bootstrap the application -->
+		<script src="./js/pict.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+//<![CDATA[
+		Pict.safeOnDocumentReady(() => { Pict.safeLoadPictApplication(PictSectionModalExampleAcme, 2)});
+//]]>
+		</script>
+	</head>
+	<body>
+		<!-- The root container the application's Layout view fills. -->
+		<div id="Acme-Application-Container"></div>
+
+		<!-- The compiled Acme bundle. -->
+		<script src="./pict-section-modal-example-acme.compatible.min.js" type="text/javascript"></script>
+	</body>
+</html>

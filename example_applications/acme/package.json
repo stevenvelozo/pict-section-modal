@@ -1,0 +1,32 @@
+{
+	"name": "pict-section-modal-example-acme",
+	"version": "0.0.1",
+	"description": "Acme Widgets — a branded multi-page example that demonstrates the full pict-section-modal shell + pict-section-theme integration: custom brand, custom theme, responsive top drawer sidebar (Store route only), gear menu with the theme picker, and a bottom status bar.",
+	"main": "source/Pict-Application-Acme.js",
+	"scripts": {
+		"start": "echo 'open dist/index.html in a browser after npm run build'",
+		"build": "npx quack build && npx quack copy",
+		"test": "echo \"no tests\" && exit 0"
+	},
+	"author": "steven velozo <steven@velozo.com>",
+	"license": "MIT",
+	"dependencies": {
+		"pict": "^1.0.367",
+		"pict-application": "^1.0.34",
+		"pict-router": "^1.0.10",
+		"pict-section-modal": "file:../../",
+		"pict-section-theme": "file:../../../pict-section-theme",
+		"pict-view": "^1.0.68"
+	},
+	"devDependencies": {
+		"quackage": "^1.1.2"
+	},
+	"copyFilesSettings": {
+		"whenFileExists": "overwrite"
+	},
+	"copyFiles": [
+		{ "from": "./html/*",            "to": "./dist/" },
+		{ "from": "./css/**",            "to": "./dist/css/" },
+		{ "from": "./node_modules/pict/dist/*", "to": "./dist/js/" }
+	]
+}
