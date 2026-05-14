@@ -822,6 +822,27 @@ module.exports = (
 {
 	min-height: 100%;
 }
+/* Center column gains this class when at least one Scope:'center'
+   panel is added.  The center stops scrolling internally — that job
+   moves to the content destination — and switches to a vertical flex
+   so the destination and any inner panels stack cleanly. */
+.pict-modal-shell-center.pict-modal-shell-center-with-inner-panel
+{
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+.pict-modal-shell-center.pict-modal-shell-center-with-inner-panel > .pict-modal-shell-center-content
+{
+	flex: 1 1 0;
+	min-height: 0;
+	overflow: auto;
+}
+.pict-modal-shell-center.pict-modal-shell-center-with-inner-panel > .pict-modal-shell-panel
+{
+	flex: 0 0 auto;
+	width: 100%;
+}
 
 /* Panels — base */
 .pict-modal-shell-panel

@@ -54,6 +54,17 @@
  *                         'resizable' (collapse tab + drag handle).
  *   Position:             'pinned' (default; takes layout space) or 'overlay'
  *                         (absolutely positioned over the center / siblings).
+ *   Scope:                'shell' (default) | 'center'.
+ *                         When 'shell', the panel mounts in one of the
+ *                         outer rows / side stacks (Side decides which).
+ *                         When 'center', the panel mounts INSIDE the
+ *                         center column instead — useful for bars that
+ *                         should align with the content area only, not
+ *                         span across the sidebars.  Only Side='top' and
+ *                         Side='bottom' are supported with Scope='center'.
+ *                         The center auto-switches to a flex-column
+ *                         layout so the content destination + inner
+ *                         panels stack vertically.
  *   Size:                 initial px (height for top/bottom, width for left/right).
  *                         Default: 200 for sides, 60 for top/bottom.
  *   MinSize, MaxSize:     drag clamp for resizable panels.
@@ -166,11 +177,39 @@ class PictModalShell
 		pOptions = pOptions || {};
 		if (pOptions.ContentDestinationId)
 		{
+			// Remove any previously-created destination so center() is
+			// idempotent across reconfigurations.  We don't blow away
+			// the whole center via innerHTML='' anymore: Scope:'center'
+			// panels mounted by earlier addPanel() calls need to stay
+			// in place.  Find the right insertion point so the
+			// destination sits between any top-scoped panels and any
+			// bottom-scoped panels.
+			if (this._centerDestinationEl && this._centerDestinationEl.parentNode === this._centerEl)
+			{
+				this._centerEl.removeChild(this._centerDestinationEl);
+			}
 			let tmpInner = document.createElement('div');
 			tmpInner.id = pOptions.ContentDestinationId;
 			tmpInner.className = 'pict-modal-shell-center-content';
-			this._centerEl.innerHTML = '';
-			this._centerEl.appendChild(tmpInner);
+			let tmpFirstBottomScoped = null;
+			let tmpChildren = this._centerEl.children;
+			for (let i = 0; i < tmpChildren.length; i++)
+			{
+				let tmpCandidate = tmpChildren[i];
+				if (tmpCandidate.classList && tmpCandidate.classList.contains('pict-modal-shell-panel-bottom'))
+				{
+					tmpFirstBottomScoped = tmpCandidate;
+					break;
+				}
+			}
+			if (tmpFirstBottomScoped)
+			{
+				this._centerEl.insertBefore(tmpInner, tmpFirstBottomScoped);
+			}
+			else
+			{
+				this._centerEl.appendChild(tmpInner);
+			}
 			this._centerDestinationEl = tmpInner;
 		}
 		return this._centerEl;
@@ -298,12 +337,36 @@ class PictModalShell
 
 	_mountPanel(pPanel)
 	{
-		let tmpHost;
 		if (pPanel.Position === 'overlay')
 		{
-			tmpHost = this._overlayLayer;
+			this._overlayLayer.appendChild(pPanel.El);
+			return;
 		}
-		else if (pPanel.Side === 'top')    tmpHost = this._topRow;
+		if (pPanel.Scope === 'center')
+		{
+			// Center-scoped panels mount inside the center column.
+			// The column switches to flex-column so the content
+			// destination + the panel(s) stack vertically.
+			this._centerEl.classList.add('pict-modal-shell-center-with-inner-panel');
+			if (pPanel.Side === 'top')
+			{
+				// Top-scoped panels go above the content destination.
+				// If center() hasn't run yet, this still works — we
+				// insert before whatever's first (or just append to an
+				// empty center, which leaves us above any subsequent
+				// content destination).
+				this._centerEl.insertBefore(pPanel.El, this._centerEl.firstChild);
+			}
+			else
+			{
+				// Side === 'bottom' (the Scope guard already filtered
+				// left/right).  Append to the bottom of the center.
+				this._centerEl.appendChild(pPanel.El);
+			}
+			return;
+		}
+		let tmpHost;
+		if      (pPanel.Side === 'top')    tmpHost = this._topRow;
 		else if (pPanel.Side === 'bottom') tmpHost = this._bottomRow;
 		else if (pPanel.Side === 'left')   tmpHost = this._leftStack;
 		else if (pPanel.Side === 'right')  tmpHost = this._rightStack;
@@ -422,6 +485,14 @@ class ShellPanel
 		this.Side = (pConfig.Side === 'right' || pConfig.Side === 'bottom' || pConfig.Side === 'left') ? pConfig.Side : 'top';
 		this.Mode = (pConfig.Mode === 'collapsible' || pConfig.Mode === 'resizable') ? pConfig.Mode : 'fixed';
 		this.Position = (pConfig.Position === 'overlay') ? 'overlay' : 'pinned';
+		// Scope: 'center' opts the panel into the center column instead
+		// of the shell's outer rows.  Only valid for Side='top'/'bottom'
+		// (left/right inside center would need a separate axis we don't
+		// support).  Invalid combinations silently fall back to 'shell'.
+		this.Scope = (pConfig.Scope === 'center'
+				&& (this.Side === 'top' || this.Side === 'bottom'))
+			? 'center'
+			: 'shell';
 		this.Title = pConfig.Title || '';
 		this.Icon  = pConfig.Icon  || '';
 		this.MinSize = (typeof pConfig.MinSize === 'number') ? pConfig.MinSize : 40;
